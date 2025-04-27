@@ -35,6 +35,13 @@ PopulationsChances = {
 }
 class CountryStats:
     def __init__(self):
+        self.Conditionals = {
+            "IsAtWar" : True,
+            "IsWinning" : True,
+            "IsLosing" : False,
+            "IsWinningPercentage" : 40,
+            "IsLosingPercentage" : 0
+        }
         self.LeaderFirstName = CountryNameGen()
         self.LeaderLastName = CountryNameGen()
         self.LeaderName = self.LeaderFirstName + ' ' + self.LeaderLastName
@@ -78,6 +85,9 @@ class CountryStats:
         self.BasicIdeology = random.choice(list(ideologies.keys()))
         self.BasicIdeologyDenonym = denonym_ideologies[self.BasicIdeology]
         self.Ideology = random.choice(ideologies[self.BasicIdeology])
+        self.CountryRegions = []
+        for i in range(random.randint(3,20)):
+            self.CountryRegions.append(CountryNameGen())
         if self.GDPunformatted <= 10000000000:
             self.Catagory = 'Very Poor'
         elif self.GDPunformatted <= 100000000000 and self.GDPunformatted >= 10000000000:

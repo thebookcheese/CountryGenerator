@@ -1,20 +1,17 @@
 import stats
-import json
 import random
+import conditions
 
 country = stats.CountryStats()
 print(country)
 print(country.Ideology)
-
-# Open and read the JSON file
-with open('history.json', 'r') as file:
-    data = json.load(file)
+Religion = ['Islam', 'Catholism','Protestantism']
+country.Religion = random.choice(Religion)
 
 
 CountryTitles = ['Duchy', 'Principality', 'Kingdom']
-# Addings Variables to the randomly selected line
 ideologies = {
-    'Democracy': ['Liberal Democracy', 'Social Democracy', 'Constitutional Monarchy', 'Parliamentary Democracy',''],
+    'Democracy': ['Liberal Democracy', 'Social Democracy', 'Constitutional Monarchy', 'Parliamentary Democracy'],
     'Communism': ['Marxism','Leninism','Marxist-Leninism','Stalinist'],
     'Monarchy' : ['Absolute Monarchy', 'Constitutional Monarchy']
 }
@@ -31,12 +28,16 @@ OtherNationRebellionNames = {
 ,}
 def VariableAdder(Line):
     Countries = []
+    CountryLeaders = {}
     Continents = []
-    for i in range(5):
+    MentionedCountry = None
+    MentionedLeader = None
+    for i in range(3):
         Add = stats.CountryNameGen()
         Continent = stats.CountryNameGen()
         Countries.append(Add)
         Continents.append(Continent)
+        CountryLeaders[Add] = stats.CountryNameGen() + ' ' + stats.CountryNameGen()
     count = 0
     RebellionCountry = random.choice(Countries)
     CurrentIdeology = None
@@ -44,16 +45,22 @@ def VariableAdder(Line):
         if i == '{OwnCountry}':
             Line[count] = country.Name
         if i == '{NewNation}':
-            a = random.choice(Countries)
-            Line[count] = a
-            RebellionCountry = a
+            if MentionedLeader == None:
+                a = random.choice(Countries)
+                Line[count] = a
+                RebellionCountry = a
+                MentionedCountry = a
+            else:
+                keys = [key for key, val in CountryLeaders.items() if val == MentionedLeader]
+                Line[count] = keys[0]
 
         if i == '{OwnLeader}':
             Line[count] = country.LeaderName
         if i == '{NewLeader}':
-            FirstName = stats.CountryNameGen()
-            LastName = stats.CountryNameGen()
-            Line[count] = FirstName + ' ' + LastName
+            if MentionedCountry != None:
+                Line[count] = CountryLeaders[MentionedCountry]
+            else:
+                Line[count] = random.choice(list(CountryLeaders.items()))
         if i == '{CountryTitle}':
             Line[count] = random.choice(CountryTitles)
         if i == '{OwnIdeology}':
@@ -64,7 +71,6 @@ def VariableAdder(Line):
             a = denonym_ideologies[random.choice(list(ideologies.keys()))]
             while CurrentIdeology == a:
                 a = denonym_ideologies[random.choice(list(ideologies.keys()))]
-
             Line[count] = a
             CurrentIdeology = a
             
@@ -82,19 +88,24 @@ def VariableAdder(Line):
         if i == '{RebellionNation}':
             Line[count] = RebellionCountry
         if i == '{Continent}':
-            Line[count] = random.choice(Cont)
+            Line[count] = random.choice(Continents)
+        if i == '{OwnReligion}':
+            Line[count] = country.Religion
+        if i == '{OwnRegion}':
+            Line[count] = random.choice(country.CountryRegions)
         count = count + 1
         
     return Line
 
 Text = ''
+'''
 for i in range(5):
-    Section = random.choice(list(data[0]))
-    Era = random.choice(list(data[0][Section]))
-    RandomDataFromSection = random.choice(list(data[0][Section][Era]))
-    RandomLine = random.choice(list(data[0][Section][Era][RandomDataFromSection]))
+    PickedLine = conditions.Conditions(country)
     SplitLine = RandomLine.split()
     Line = VariableAdder(SplitLine)
     CorrectedText = " ".join(str(element) for element in Line)
     Text = Text + "\n" + CorrectedText
-print(Text)
+'''
+PickedLine = conditions.Conditions(country)
+print(PickedLine)
+print(country.Conditionals)

@@ -1,20 +1,34 @@
 [
     {
-        "Wars" : {
-            "Medieval": {
-                "War Of Succession (Other Nation)": [" {OwnCountry} fought a war against {NewNation} over the {CountryTitle} of {NewNation} 's throne . "," {OwnCountry} fought to support {NewLeader} 's claim to the {NewNation} throne instead of {NewLeader} 's ."],
-                "War Of Succession (Own Nation)" : [" {OwnCountry} fought to support {OwnLeader} 's claim to the throne over {NewLeader} 's, who ruled {NewNation} ."],
-                "Religous War": [" After a reformation in {NewNation} to {Religion} , {OwnCountry} invaded them to turn them to {OwnReligion} .", " The head of {OwnReligion} declared a holy war against {Religion} and {OwnNation} got involved ."]
-            },
-            "Victorian": {
-                "Colonial War" : [" {OwnCountry} declared war on {NewNation} to protect its colony in {Continent} ."]
+        "IsAtWar" : {
+            "IsWinning" : {
+                "IsWinningPercentage > 35" : {
+                    "Result" : {
+                        "IsAtWar" : "",
+                        "IsWinning": ""
+                    },
+                    "TextOptions" : [
+                        "Big Cheese",
+                        "Small Cheese"
+                    ]
+                },
+                "IsWinningPercentage < 11" : {
+                    "Result" : {
+                        "IsAtWar": "",
+                        "IsLosing": ""
+                    },
+                    "TextOptions" : [
+                        "3",
+                        "4"
+                    ]
+                }
 
             },
-            "Modern Day" : {
-                "Proxy War": [" A civil war between the {OwnIdeology} {OtherNationRebellionName} and the {Ideology} {OtherNationRebellionName} in {RebellionNation} caused {OwnCountry} to send military aid .", ""],
-                "Civil War": [" A {Ideology} rebellion rose up in the {NewNation} region of {OwnCountry}"]
+            "IsLosing" : {
+                "Result" : {
+
+                }
             }
-
         }
     }
 ]
