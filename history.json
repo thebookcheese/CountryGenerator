@@ -2,10 +2,11 @@
     {
         "IsAtWar" : {
             "IsWinning" : {
-                "IsWinningPercentage > 35" : {
+                "IsWinningPercentage > 34" : {
                     "Result" : {
-                        "IsAtWar" : "",
-                        "IsWinning": ""
+                        "IsAtWar" : false,
+                        "IsWinning": false,
+                        "IsWinningPercentage": 0
                     },
                     "TextOptions" : [
                         "Big Cheese",
@@ -14,21 +15,45 @@
                 },
                 "IsWinningPercentage < 11" : {
                     "Result" : {
-                        "IsAtWar": "",
-                        "IsLosing": ""
+                        "IsAtWar": false,
+                        "IsWinning": false,
+                        "IsWinningPercentage":0
                     },
                     "TextOptions" : [
                         "3",
                         "4"
                     ]
+                },
+                "IsWinningPercentage > 11" : {
+                    "IsWinningPercentage < 21" : {
+                        "Result" : {
+                            "IsAtWar" : false,
+                            "IsWinning" : false,
+                            "IsWinningPercentage": 0
+                        },
+                        "TextOptions" : [
+                            "5",
+                            "6"
+                        ]
+                    }
                 }
 
             },
             "IsLosing" : {
-                "Result" : {
+                "IsLosingPercentage > 34": {
+                    "Result" : {
+                        "IsAtWar": false,
+                        "IsLosing": false,
+                        "IsLosingPercentage": 0
+                    },
+                    "TextOptions" : [
+                        "He haw, you lost :D",
+                        "You did a losing :( :("
+                    ]
 
-                }
+                 }
             }
+                
         }
     }
 ]

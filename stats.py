@@ -37,10 +37,10 @@ class CountryStats:
     def __init__(self):
         self.Conditionals = {
             "IsAtWar" : True,
-            "IsWinning" : True,
-            "IsLosing" : False,
-            "IsWinningPercentage" : 40,
-            "IsLosingPercentage" : 0
+            "IsWinning" : False,
+            "IsLosing" : True,
+            "IsWinningPercentage" : 0,
+            "IsLosingPercentage" : 40
         }
         self.LeaderFirstName = CountryNameGen()
         self.LeaderLastName = CountryNameGen()

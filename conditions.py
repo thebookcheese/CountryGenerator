@@ -18,7 +18,8 @@ def count_dict(d):
     return count
 
 def Conditions(country):
-    neededResult = True
+    count = 0
+    countcount = 0
     with open('history.json', 'r') as file:
         data = json.load(file)
     a = False
@@ -26,30 +27,73 @@ def Conditions(country):
     jsonSectionsDict = {
 
     }
+    dict = None
     while a == False:
-        Condition = random.choice(data)
-        print(jsonSectionsDict)
+        dict = data[0]
         for i in jsonSectionsDict:
-            Condition = Condition[i]
+            dict = dict[i]
+        prevdict = dict
+        Condition = random.choice(list(dict.keys()))
         prev = Condition
-        splitCondition = next(iter(Condition)).split()
-        if count_dict(Condition) == 2:
-            Line = random.choice(Condition['TextOptions'])
+        print(Condition)
+        print(list(prevdict.keys()))
+        splitCondition = Condition.split()
+        print(splitCondition)
+        if count_dict(dict) == 2:
+            for key in dict['Result']:
+                if dict['Result'][key] == 'false' or dict['Result'][key] == 'true':
+                    if dict['Result'][key] == 'false':
+                        country.Conditionals[key] = False
+                    else:
+                        country.Conditionals[key] = True
+                else:
+                    country.Conditionals[key] = dict['Result'][key]
+            Line = random.choice(dict['TextOptions'])
             return Line
         else:
             if len(splitCondition) == 2:
                 if splitCondition[0].lower() == 'not':
-                    while country.Conditionals[splitCondition[1]] != False:
+                    if country.Conditionals[splitCondition[1]] == True:
                         Condition = random.choice(list(prev.keys()))
-                    jsonSectionsDict[Condition] = None
-            elif len(splitCondition) == 1:
-                while country.Conditionals[splitCondition[0]] != True:
-                    Condition = random.choice(list(prev.keys()))
-                jsonSectionsDict[splitCondition[0]] = None
-            elif len(splitCondition) == 3:
+                        splitCondition = Condition.split()
+                        count = count + 1
+                    else:
+                        jsonSectionsDict[Condition] = None
+                        count = 0
+                        countcount = countcount + 1
+
+            if len(splitCondition) == 1:
+                if country.Conditionals[splitCondition[0]] != True:
+                    print(list(prevdict.keys()))
+                    print(count)
+                    Condition = list(prevdict.keys())[count]
+                    splitCondition = Condition.split()
+                    count = count + 1
+                else:
+                    jsonSectionsDict[splitCondition[0]] = None
+                    count = 0
+                    countcount = countcount + 1
+            if len(splitCondition) == 3:
                 if splitCondition[1] == '>':
-                    while country.Conditionals[splitCondition[0]] < int(splitCondition[2]):
-                        Condition = random.choice(list(prev.keys()))
-                    b = " "
-                    splitCondition = b.join(splitCondition)
-                    jsonSectionsDict[splitCondition] = None
+                    if int(country.Conditionals[splitCondition[0]]) < int(splitCondition[2]):
+                        Condition = random.choice(list(prevdict.keys()))
+                        splitCondition = Condition.split()
+                        count = count + 1
+                    else:
+                        b = " "
+                        splitCondition = b.join(splitCondition)
+                        jsonSectionsDict[splitCondition] = None
+                        count = 0
+                        countcount = countcount + 1
+                if splitCondition[1] == '<':
+                    if int(country.Conditionals[splitCondition[0]]) > int(splitCondition[2]):
+                        Condition = random.choice(prevdict.keys())
+                        splitCondition = Condition.split()
+                        count = count + 1       
+                    else:
+                        b = " "
+                        splitCondition = b.join(splitCondition)
+                        jsonSectionsDict[splitCondition] = None
+                        count = 0
+                        countcount = countcount + 1
+
