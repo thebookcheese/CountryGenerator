@@ -66,14 +66,20 @@ def Conditions(country):
                 if country.Conditionals[splitCondition[0]] != True:
                     print(list(prevdict.keys()))
                     print(count)
-                    Condition = list(prevdict.keys())[count]
-                    splitCondition = Condition.split()
-                    count = count + 1
+                    if count > len(list(prevdict.keys()))-1:
+                        Condition = list(prevdict.keys())[len(list(prevdict.keys()))-count]
+                        splitCondition = Condition.split()
+                        count = count + 1
+                    else:
+                        Condition = list(prevdict.keys())[count]
+                        splitCondition = Condition.split()
+                        count = count + 1
                 else:
                     jsonSectionsDict[splitCondition[0]] = None
                     count = 0
                     countcount = countcount + 1
             if len(splitCondition) == 3:
+                print(country.Conditionals[splitCondition[0]])
                 if splitCondition[1] == '>':
                     if int(country.Conditionals[splitCondition[0]]) < int(splitCondition[2]):
                         Condition = random.choice(list(prevdict.keys()))
@@ -87,9 +93,9 @@ def Conditions(country):
                         countcount = countcount + 1
                 if splitCondition[1] == '<':
                     if int(country.Conditionals[splitCondition[0]]) > int(splitCondition[2]):
-                        Condition = random.choice(prevdict.keys())
+                        Condition = random.choice(list(prevdict.keys()))
                         splitCondition = Condition.split()
-                        count = count + 1       
+                        count = count + 1    
                     else:
                         b = " "
                         splitCondition = b.join(splitCondition)

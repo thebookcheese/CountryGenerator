@@ -2,17 +2,6 @@
     {
         "IsAtWar" : {
             "IsWinning" : {
-                "IsWinningPercentage > 34" : {
-                    "Result" : {
-                        "IsAtWar" : false,
-                        "IsWinning": false,
-                        "IsWinningPercentage": 0
-                    },
-                    "TextOptions" : [
-                        "Big Cheese",
-                        "Small Cheese"
-                    ]
-                },
                 "IsWinningPercentage < 11" : {
                     "Result" : {
                         "IsAtWar": false,
@@ -20,8 +9,8 @@
                         "IsWinningPercentage":0
                     },
                     "TextOptions" : [
-                        "3",
-                        "4"
+                        "You won (a little)!",
+                        "You are (slightly) on top!"
                     ]
                 },
                 "IsWinningPercentage > 11" : {
@@ -32,8 +21,30 @@
                             "IsWinningPercentage": 0
                         },
                         "TextOptions" : [
-                            "5",
-                            "6"
+                            "You won (middling) !!",
+                            "You (mediumly) won !!"
+                        ]
+                    },
+                    "IsWinningPercentage < 35" : {
+                        "Result" : {
+                            "IsAtWar" : false,
+                            "IsWinning" : false,
+                            "IsWinningPercentage": 0
+                        },
+                        "TextOptions" : [
+                            "You won (a lot) !!",
+                            "You (pretty much) destroyed them !!"
+                        ]    
+                    },
+                    "IsWinningPercentage > 34" : {
+                        "Result" : {
+                            "IsAtWar" : false,
+                            "IsWinning": false,
+                            "IsWinningPercentage": 0
+                        },
+                        "TextOptions" : [
+                            "You destroyed them!",
+                            "Mwuahaha"
                         ]
                     }
                 }
