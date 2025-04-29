@@ -65,6 +65,15 @@
                  }
             }
                 
+        },
+        "Not IsAtWar" : {
+            "Tension > 0" : {
+                "Tension < 50" : {
+                    "Result" : {
+                        
+                    }
+                }
+            }
         }
     }
 ]
