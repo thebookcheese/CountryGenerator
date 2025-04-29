@@ -4,13 +4,14 @@
             "IsWinning" : {
                 "IsWinningPercentage < 11" : {
                     "Result" : {
+                        "OwnNation" : true,
                         "IsAtWar": false,
                         "IsWinning": false,
-                        "IsWinningPercentage":0
+                        "IsWinningPercentage": 0
                     },
                     "TextOptions" : [
-                        "You won (a little)!",
-                        "You are (slightly) on top!"
+                        "{OwnCountry} won (a little)!",
+                        "{OwnCountry} is (slightly) on top!"
                     ]
                 },
                 "IsWinningPercentage > 11" : {
@@ -21,8 +22,8 @@
                             "IsWinningPercentage": 0
                         },
                         "TextOptions" : [
-                            "You won (middling) !!",
-                            "You (mediumly) won !!"
+                            "{OwnCountry} won (middling) !! ",
+                            "{OwnCountry} (mediumly) won !! "
                         ]
                     },
                     "IsWinningPercentage < 35" : {
@@ -32,8 +33,8 @@
                             "IsWinningPercentage": 0
                         },
                         "TextOptions" : [
-                            "You won (a lot) !!",
-                            "You (pretty much) destroyed them !!"
+                            "{OwnCountry} won (a lot) !! ",
+                            "{OwnCountry} (pretty much) destroyed {NewNation} !! "
                         ]    
                     },
                     "IsWinningPercentage > 34" : {
@@ -43,8 +44,8 @@
                             "IsWinningPercentage": 0
                         },
                         "TextOptions" : [
-                            "You destroyed them!",
-                            "Mwuahaha"
+                            "{OwnCountry} destroyed {NewNation} ! ",
+                            "Mwuahaha says {OwnLeader} . "
                         ]
                     }
                 }

@@ -17,7 +17,7 @@ def count_dict(d):
             count += count_dict(v)
     return count
 
-def Conditions(country):
+def Conditions(country, opposingCountry):
     count = 0
     countcount = 0
     with open('history.json', 'r') as file:
@@ -41,20 +41,35 @@ def Conditions(country):
         print(splitCondition)
         if count_dict(dict) == 2:
             for key in dict['Result']:
-                if dict['Result'][key] == 'false' or dict['Result'][key] == 'true':
+                if key == 'OwnNation':
                     if dict['Result'][key] == 'false':
-                        country.Conditionals[key] = False
-                    else:
-                        country.Conditionals[key] = True
+                        if dict['Result'][key] == 'false' or dict['Result'][key] == 'true':
+                            if dict['Result'][key] == 'false':
+                                opposingCountry.Conditionals[key] = False
+                            else:
+                                opposingCountry.Conditionals[key] = True
+                        else:
+                            opposingCountry.Conditionals[key] = dict['Result'][key]
+
                 else:
-                    country.Conditionals[key] = dict['Result'][key]
+                    if dict['Result'][key] == 'false' or dict['Result'][key] == 'true':
+                        if dict['Result'][key] == 'false':
+                            country.Conditionals[key] = False
+                        else:
+                            country.Conditionals[key] = True
+                    else:
+                        country.Conditionals[key] = dict['Result'][key]
             Line = random.choice(dict['TextOptions'])
-            return Line
+            splitLine = Line.split()
+            if '{NewNation}' in splitLine:
+                return Line, True
+            else:
+                return Line, False
         else:
             if len(splitCondition) == 2:
                 if splitCondition[0].lower() == 'not':
                     if country.Conditionals[splitCondition[1]] == True:
-                        Condition = random.choice(list(prev.keys()))
+                        Condition = random.choice(list(prevdict.keys()))
                         splitCondition = Condition.split()
                         count = count + 1
                     else:
@@ -67,7 +82,10 @@ def Conditions(country):
                     print(list(prevdict.keys()))
                     print(count)
                     if count > len(list(prevdict.keys()))-1:
-                        Condition = list(prevdict.keys())[len(list(prevdict.keys()))-count]
+                        if len(list(prevdict.keys()))-count > len(list(prevdict.keys())) or len(list(prevdict.keys()))-count < 0:
+                            Condition = list(prevdict.keys())[random.randint(1, len(list(prevdict.keys())))-1]
+                        else:
+                            Condition = list(prevdict.keys())[len(list(prevdict.keys()))-count]
                         splitCondition = Condition.split()
                         count = count + 1
                     else:

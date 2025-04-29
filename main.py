@@ -8,6 +8,14 @@ print(country.Ideology)
 Religion = ['Islam', 'Catholism','Protestantism']
 country.Religion = random.choice(Religion)
 
+Countries = []
+CountryLeaders = {}
+Continents = []
+for i in range(3):
+    Add = stats.CountryStats()
+    Continent = stats.CountryNameGen()
+    Countries.append(Add)
+    Continents.append(Continent)
 
 CountryTitles = ['Duchy', 'Principality', 'Kingdom']
 ideologies = {
@@ -26,52 +34,47 @@ OtherNationRebellionNames = {
     'Nationalist' : ['New Empire of {NewNation}'],
     'Monarchist' : ['Kingdom of {NewNation}', 'Absolute Monarchy of {NewNation}']
 ,}
-def VariableAdder(Line):
-    Countries = []
-    CountryLeaders = {}
-    Continents = []
+def VariableAdder(Line, opposingCountry):
     MentionedCountry = None
     MentionedLeader = None
-    for i in range(3):
-        Add = stats.CountryNameGen()
-        Continent = stats.CountryNameGen()
-        Countries.append(Add)
-        Continents.append(Continent)
-        CountryLeaders[Add] = stats.CountryNameGen() + ' ' + stats.CountryNameGen()
     count = 0
     RebellionCountry = random.choice(Countries)
     CurrentIdeology = None
-    for i in Line:
-        if i == '{OwnCountry}':
-            Line[count] = country.Name
+    splitLine = Line.split()
+    for i in splitLine:
+        if i == '{OwnCountry}' or i == '{OwnNation}':
+            splitLine[count] = country.Name
         if i == '{NewNation}':
-            if MentionedLeader == None:
-                a = random.choice(Countries)
-                Line[count] = a
-                RebellionCountry = a
-                MentionedCountry = a
-            else:
-                keys = [key for key, val in CountryLeaders.items() if val == MentionedLeader]
-                Line[count] = keys[0]
+            if opposingCountry != None:
+                if MentionedLeader == None:
+                    a = random.choice(Countries)
+                    splitLine[count] = a.Name
+                    RebellionCountry = a
+                    MentionedCountry = a
+                else:
+                    keys = [key for key, val in CountryLeaders.items() if val == MentionedLeader]
+                    splitLine[count] = keys[0]
 
         if i == '{OwnLeader}':
-            Line[count] = country.LeaderName
+            splitLine[count] = country.LeaderName
         if i == '{NewLeader}':
             if MentionedCountry != None:
-                Line[count] = CountryLeaders[MentionedCountry]
+                splitLine[count] = CountryLeaders[MentionedCountry.Name]
             else:
-                Line[count] = random.choice(list(CountryLeaders.items()))
+                a = random.choice(list(CountryLeaders.items()))
+                splitLine[count] = a
+                MentionedLeader = a
         if i == '{CountryTitle}':
-            Line[count] = random.choice(CountryTitles)
+            splitLine[count] = random.choice(CountryTitles)
         if i == '{OwnIdeology}':
             a = country.BasicIdeologyDenonym
-            Line[count] = a
+            splitLine[count] = a
             CurrentIdeology = a
         if i == '{Ideology}':
             a = denonym_ideologies[random.choice(list(ideologies.keys()))]
             while CurrentIdeology == a:
                 a = denonym_ideologies[random.choice(list(ideologies.keys()))]
-            Line[count] = a
+            splitLine[count] = a
             CurrentIdeology = a
             
         if i == '{OtherNationRebellionName}':
@@ -81,20 +84,21 @@ def VariableAdder(Line):
             count2 = 0
             for i in line:
                 if i == '{NewNation}':
-                    line[count2] = RebellionCountry
+                    line[count2] = RebellionCountry.Name
                 count2 = count2 + 1
             CorrectedLine = " ".join(str(element) for element in line)
-            Line[count]  = CorrectedLine
+            splitLine[count]  = CorrectedLine
         if i == '{RebellionNation}':
-            Line[count] = RebellionCountry
+            splitLine[count] = RebellionCountry.Name
         if i == '{Continent}':
-            Line[count] = random.choice(Continents)
+            splitLine[count] = random.choice(Continents)
         if i == '{OwnReligion}':
-            Line[count] = country.Religion
+            splitLine[count] = country.Religion
         if i == '{OwnRegion}':
-            Line[count] = random.choice(country.CountryRegions)
+            splitLine[count] = random.choice(country.CountryRegions)
         count = count + 1
         
+    Line = " ".join(str(element) for element in splitLine)
     return Line
 
 Text = ''
@@ -106,6 +110,10 @@ for i in range(5):
     CorrectedText = " ".join(str(element) for element in Line)
     Text = Text + "\n" + CorrectedText
 '''
-PickedLine = conditions.Conditions(country)
+OpposingCountry = random.choice(Countries)
+PickedLine, InvolvesOtherNation = conditions.Conditions(country, OpposingCountry)
 print(PickedLine)
-print(country.Conditionals)
+if InvolvesOtherNation == True:
+    print(VariableAdder(PickedLine, OpposingCountry))
+else:
+    print(VariableAdder(PickedLine, None))
