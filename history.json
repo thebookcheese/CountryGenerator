@@ -1,77 +1,106 @@
 [
     {
-        "IsAtWar" : {
-            "IsWinning" : {
-                "IsWinningPercentage < 11" : {
-                    "Result" : {
-                        "OwnNation" : true,
-                        "IsAtWar": false,
-                        "IsWinning": false,
-                        "IsWinningPercentage": 0
-                    },
-                    "TextOptions" : [
-                        "{OwnCountry} won (a little)!",
-                        "{OwnCountry} is (slightly) on top!"
-                    ]
+        "IsAtWar": {
+            "IsWinning": {
+                "IsWinningPercentage < 11": {
+                    "TextOptions": {
+                        "{OwnCountry} won (a little) ! ": {
+                            "Result": {
+                                "OwnNation": true,
+                                "IsAtWar": false,
+                                "IsWinning": false,
+                                "IsWinningPercentage": 0
+                            }
+                        },
+                        "{OwnCountry} is (slightly) on top ! ": {
+                            "Result": {
+                                "OwnNation": true,
+                                "IsAtWar": false,
+                                "IsWinning": false,
+                                "IsWinningPercentage": 0
+                            }
+                        }
+                    }
                 },
-                "IsWinningPercentage > 11" : {
-                    "IsWinningPercentage < 21" : {
-                        "Result" : {
-                            "IsAtWar" : false,
-                            "IsWinning" : false,
-                            "IsWinningPercentage": 0
-                        },
-                        "TextOptions" : [
-                            "{OwnCountry} won (middling) !! ",
-                            "{OwnCountry} (mediumly) won !! "
-                        ]
+                "IsWinningPercentage > 11": {
+                    "IsWinningPercentage < 21": {
+                        "TextOptions": {
+                            "{OwnCountry} won (middling) !! ": {
+                                "Result": {
+                                    "IsAtWar": false,
+                                    "IsWinning": false,
+                                    "IsWinningPercentage": 0
+                                }
+                            },
+                            "{OwnCountry} (mediumly) won !! ": {
+                                "Result": {
+                                    "IsAtWar": false,
+                                    "IsWinning": false,
+                                    "IsWinningPercentage": 0
+                                }
+                            }
+                        }
                     },
-                    "IsWinningPercentage < 35" : {
-                        "Result" : {
-                            "IsAtWar" : false,
-                            "IsWinning" : false,
-                            "IsWinningPercentage": 0
-                        },
-                        "TextOptions" : [
-                            "{OwnCountry} won (a lot) !! ",
-                            "{OwnCountry} (pretty much) destroyed {NewNation} !! "
-                        ]    
+                    "IsWinningPercentage < 35": {
+                        "TextOptions": {
+                            "{OwnCountry} won (a lot) !! ": {
+                                "Result": {
+                                    "IsAtWar": false,
+                                    "IsWinning": false,
+                                    "IsWinningPercentage": 0
+                                }
+                            },
+                            "{OwnCountry} (pretty much) destroyed {NewNation} !! ": {
+                                "Result": {
+                                    "IsAtWar": false,
+                                    "IsWinning": false,
+                                    "IsWinningPercentage": 0
+                                }
+                            }
+                        }
                     },
-                    "IsWinningPercentage > 34" : {
-                        "Result" : {
-                            "IsAtWar" : false,
-                            "IsWinning": false,
-                            "IsWinningPercentage": 0
-                        },
-                        "TextOptions" : [
-                            "{OwnCountry} destroyed {NewNation} ! ",
-                            "Mwuahaha says {OwnLeader} . "
-                        ]
+                    "IsWinningPercentage > 34": {
+                        "TextOptions": {
+                            "{OwnCountry} destroyed {NewNation} ! ": {
+                                "Result": {
+                                    "IsAtWar": false,
+                                    "IsWinning": false,
+                                    "IsWinningPercentage": 0
+                                }
+                            },
+                            "Mwuahaha says {OwnLeader} . ": {
+                                "Result": {
+                                    "IsAtWar": false,
+                                    "IsWinning": false,
+                                    "IsWinningPercentage": 0
+                                }
+                            }
+                        }
                     }
                 }
-
             },
-            "IsLosing" : {
+            "IsLosing": {
                 "IsLosingPercentage > 34": {
-                    "Result" : {
-                        "IsAtWar": false,
-                        "IsLosing": false,
-                        "IsLosingPercentage": 0
-                    },
-                    "TextOptions" : [
-                        "He haw, you lost :D",
-                        "You did a losing :( :("
-                    ]
-
-                 }
+                    "TextOptions": {
+                        "{OwnNation} completely lost ": {
+                            "Result": {
+                                "IsAtWar": false,
+                                "IsLosingPercentage": 0
+                            }
+                        }
+                    }
+                }
             }
-                
         },
-        "Not IsAtWar" : {
-            "Tension > 0" : {
-                "Tension < 50" : {
-                    "Result" : {
-                        
+        "Not IsAtWar": {
+            "Tension > 0": {
+                "Tension < 10": {
+                    "TextOptions": {
+                        "Tension :(": {
+                            "Result": {
+                                "Tension": 0
+                            }
+                        }
                     }
                 }
             }

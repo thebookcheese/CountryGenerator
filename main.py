@@ -12,11 +12,14 @@ Countries = []
 CountryLeaders = {}
 Continents = []
 for i in range(3):
-    Add = stats.CountryStats()
-    Continent = stats.CountryNameGen()
+    Add = stats.CountryStats() # generates a new country
+    Continent = stats.CountryNameGen() # generates the name of a continent
     Countries.append(Add)
     Continents.append(Continent)
+    #Adds the countries and continents to their respective lists
 
+
+#Creates lists for titles, ideologies (and their denonyms), and names of rebellions
 CountryTitles = ['Duchy', 'Principality', 'Kingdom']
 ideologies = {
     'Democracy': ['Liberal Democracy', 'Social Democracy', 'Constitutional Monarchy', 'Parliamentary Democracy'],
@@ -34,52 +37,54 @@ OtherNationRebellionNames = {
     'Nationalist' : ['New Empire of {NewNation}'],
     'Monarchist' : ['Kingdom of {NewNation}', 'Absolute Monarchy of {NewNation}']
 ,}
-def VariableAdder(Line, opposingCountry):
-    MentionedCountry = None
-    MentionedLeader = None
-    count = 0
-    RebellionCountry = random.choice(Countries)
-    CurrentIdeology = None
-    splitLine = Line.split()
-    for i in splitLine:
-        if i == '{OwnCountry}' or i == '{OwnNation}':
-            splitLine[count] = country.Name
-        if i == '{NewNation}':
-            if opposingCountry != None:
-                if MentionedLeader == None:
-                    a = random.choice(Countries)
-                    splitLine[count] = a.Name
-                    RebellionCountry = a
-                    MentionedCountry = a
-                else:
-                    keys = [key for key, val in CountryLeaders.items() if val == MentionedLeader]
-                    splitLine[count] = keys[0]
 
-        if i == '{OwnLeader}':
-            splitLine[count] = country.LeaderName
+
+def VariableAdder(Line, opposingCountry): # Function to add variables to the string
+    MentionedCountry = None # for checking if there is a previously mentioned country
+    MentionedLeader = None # for checking if there is a previously mentioned leader :0
+    count = 0
+    RebellionCountry = random.choice(Countries) # picks a random country
+    CurrentIdeology = None # what ideology is it
+    splitLine = Line.split() # splits the line into words
+    for i in splitLine: # iterates over the split line
+        if i == '{OwnCountry}' or i == '{OwnNation}':
+            splitLine[count] = country.Name # adds the name of the country to the line
+        if i == '{NewNation}':
+            if opposingCountry != None: # checks if there  is an opposing leader
+                if MentionedLeader == None: # checks if there is a previously mentioned leader
+                    a = random.choice(Countries) # picks a random country
+                    splitLine[count] = a.Name # replaces the placeholder with the name of the leader
+                    RebellionCountry = a #sets the picked countey to the rebillion country
+                    MentionedCountry = a # sets the picked country to the mentioned country
+                else:
+                    keys = [key for key, val in CountryLeaders.items() if val == MentionedLeader] # checks for the country leader in the countryleader dictionary
+                    splitLine[count] = keys[0] # replaces the place holder with the mentioned leader
+
+        if i == '{OwnLeader}': 
+            splitLine[count] = country.LeaderName # replaces it with the leader name
         if i == '{NewLeader}':
-            if MentionedCountry != None:
-                splitLine[count] = CountryLeaders[MentionedCountry.Name]
-            else:
-                a = random.choice(list(CountryLeaders.items()))
+            if MentionedCountry != None: # checks if there is a previously mentioned country
+                splitLine[count] = CountryLeaders[MentionedCountry.Name] # if there is set it to that country's leader
+            else: # if not
+                a = random.choice(list(CountryLeaders.items())) # picks a random leader
                 splitLine[count] = a
-                MentionedLeader = a
+                MentionedLeader = a # sets the mentioned as the random leader
         if i == '{CountryTitle}':
-            splitLine[count] = random.choice(CountryTitles)
+            splitLine[count] = random.choice(CountryTitles) # picks a country title
         if i == '{OwnIdeology}':
-            a = country.BasicIdeologyDenonym
+            a = country.BasicIdeologyDenonym # get the ideology of the country
             splitLine[count] = a
             CurrentIdeology = a
         if i == '{Ideology}':
-            a = denonym_ideologies[random.choice(list(ideologies.keys()))]
+            a = denonym_ideologies[random.choice(list(ideologies.keys()))] # picks a random ideology
             while CurrentIdeology == a:
-                a = denonym_ideologies[random.choice(list(ideologies.keys()))]
+                a = denonym_ideologies[random.choice(list(ideologies.keys()))] # picks a random ideology until it isn't the country's ideology
             splitLine[count] = a
             CurrentIdeology = a
             
         if i == '{OtherNationRebellionName}':
             a = CurrentIdeology
-            line = random.choice(OtherNationRebellionNames[a])
+            line = random.choice(OtherNationRebellionNames[a]) #picks a rebbelion name with the current ideology
             line = line.split()
             count2 = 0
             for i in line:
@@ -87,21 +92,22 @@ def VariableAdder(Line, opposingCountry):
                     line[count2] = RebellionCountry.Name
                 count2 = count2 + 1
             CorrectedLine = " ".join(str(element) for element in line)
-            splitLine[count]  = CorrectedLine
+            splitLine[count]  = CorrectedLine #
         if i == '{RebellionNation}':
             splitLine[count] = RebellionCountry.Name
         if i == '{Continent}':
-            splitLine[count] = random.choice(Continents)
+            splitLine[count] = random.choice(Continents) # picks a random continent
         if i == '{OwnReligion}':
             splitLine[count] = country.Religion
         if i == '{OwnRegion}':
-            splitLine[count] = random.choice(country.CountryRegions)
+            splitLine[count] = random.choice(country.CountryRegions) # picks a random region
         count = count + 1
         
-    Line = " ".join(str(element) for element in splitLine)
-    return Line
+    Line = " ".join(str(element) for element in splitLine) # combines the line back together
+    return Line # returns it
 
 Text = ''
+
 '''
 for i in range(5):
     PickedLine = conditions.Conditions(country)
@@ -110,10 +116,12 @@ for i in range(5):
     CorrectedText = " ".join(str(element) for element in Line)
     Text = Text + "\n" + CorrectedText
 '''
-OpposingCountry = random.choice(Countries)
+OpposingCountry = random.choice(Countries) # picks a random opposing country
 PickedLine, InvolvesOtherNation = conditions.Conditions(country, OpposingCountry)
+
 print(PickedLine)
 if InvolvesOtherNation == True:
-    print(VariableAdder(PickedLine, OpposingCountry))
+    print(VariableAdder(PickedLine, OpposingCountry)) # runs variable adder
 else:
     print(VariableAdder(PickedLine, None))
+

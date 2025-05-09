@@ -39,7 +39,7 @@ class CountryStats:
             "IsAtWar" : True,
             "IsWinning" : True,
             "IsLosing" : False,
-            "IsWinningPercentage" : random.randint(1, 50),
+            "IsWinningPercentage" : random.randint(1,50),
             "IsLosingPercentage" : 0,
         }
         self.LeaderFirstName = CountryNameGen()
