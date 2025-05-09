@@ -80,12 +80,28 @@
                 }
             },
             "IsLosing": {
-                "IsLosingPercentage > 34": {
+                "IsLosingPercentage < 11": {
                     "TextOptions": {
-                        "{OwnNation} completely lost ": {
+                        "{OwnNation} barely lost ": {
                             "Result": {
                                 "IsAtWar": false,
                                 "IsLosingPercentage": 0
+                            }
+                        },
+                        "{OwnNation} nearly won " : {
+                            "Result" : {
+                                "IsAtWar" : false,
+                                "IsLosingPercentage" : 0
+                            }
+                        }
+                    }
+                },
+                "IsLosingPercentage > 34" : {
+                    "TextOptions" : {
+                        "{OwnNation} completely lost " : {
+                            "Result" : {
+                                "IsAtWar" : false,
+                                "IsLosingPercentage" : 0
                             }
                         }
                     }
@@ -96,9 +112,9 @@
             "Tension > 0": {
                 "Tension < 10": {
                     "TextOptions": {
-                        "Tension :(": {
+                        "Grr says {NewNation} ": {
                             "Result": {
-                                "Tension": 0
+                                "Tension": "randint 5 15"
                             }
                         }
                     }

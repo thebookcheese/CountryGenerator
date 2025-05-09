@@ -58,6 +58,10 @@ def Conditions(country, opposingCountry):
                             country.Conditionals[key] = True # read below
                         elif data[key] == 'false':
                             country.Conditionals[key] = False # read below
+                        elif type(data[key]) == str and len(data[key]) == 3:
+                            splitresult = data[key].split()
+                            if splitresult[0] == 'randint':
+                                country.Conditionals[key] = random.randint(splitcondition[1], splitcondition[2])
                         elif type(data[key]) == int:
                             country.Conditionals[key] = data[key]  # changes the conditions to the results
             OtherNation = ['{NewNation}', '{NewLeader}']

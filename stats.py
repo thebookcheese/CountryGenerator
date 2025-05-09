@@ -41,6 +41,7 @@ class CountryStats:
             "IsLosing" : False,
             "IsWinningPercentage" : random.randint(1,50),
             "IsLosingPercentage" : 0,
+            "Tension" : 4
         }
         self.LeaderFirstName = CountryNameGen()
         self.LeaderLastName = CountryNameGen()
