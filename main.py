@@ -116,12 +116,18 @@ for i in range(5):
     CorrectedText = " ".join(str(element) for element in Line)
     Text = Text + "\n" + CorrectedText
 '''
-OpposingCountry = random.choice(Countries) # picks a random opposing country
-PickedLine, InvolvesOtherNation = conditions.Conditions(country, OpposingCountry)
 
-print(PickedLine)
-if InvolvesOtherNation == True:
-    print(VariableAdder(PickedLine, OpposingCountry)) # runs variable adder
-else:
-    print(VariableAdder(PickedLine, None))
+f = open('history.txt','w')
+for i in range(2):
+    OpposingCountry = random.choice(Countries) # picks a random opposing country
+    PickedLine, InvolvesOtherNation = conditions.Conditions(country, OpposingCountry)
+
+    print(PickedLine)
+    if InvolvesOtherNation == True:
+        a = VariableAdder(PickedLine, OpposingCountry) # runs variable adder
+        f.write(a + '\n')
+    else:
+        a = VariableAdder(PickedLine, None)
+        f.write(a + '\n')
+    f.write(str(country.Conditionals['Tension']) + '\n')
 

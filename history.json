@@ -110,11 +110,27 @@
         },
         "Not IsAtWar": {
             "Tension > 0": {
-                "Tension < 10": {
+                "Tension < 11": {
                     "TextOptions": {
-                        "Grr says {NewNation} ": {
+                        "{NewNation} claims {OwnRegion} ": {
                             "Result": {
                                 "Tension": "randint 5 15"
+                            }
+                        },
+                        "A descaltion occurs between the two sides occurs " : {
+                            "Result" : {
+                                "Tension" : "randint 0 var Tension"
+                            }
+                        }
+                    }
+                }
+            },
+            "Tension > 10" : {
+                "Tension < 21" : {
+                    "TextOptions" : {
+                        "A diplomat makes an offensive comment" : {
+                            "Result" : {
+                                "Tension" :"randint 15 25"
                             }
                         }
                     }

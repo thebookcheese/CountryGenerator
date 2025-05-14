@@ -53,15 +53,35 @@ def Conditions(country, opposingCountry):
                     if data[key] == 'false':
                         owncountry = False
                 else:
-                    if owncountry == True:
-                        if data[key] == 'true':
-                            country.Conditionals[key] = True # read below
-                        elif data[key] == 'false':
-                            country.Conditionals[key] = False # read below
-                        elif type(data[key]) == str and len(data[key]) == 3:
-                            splitresult = data[key].split()
-                            if splitresult[0] == 'randint':
-                                country.Conditionals[key] = random.randint(splitcondition[1], splitcondition[2])
+                    if owncountry == True: # if owncountry = true then
+                        if type(data[key]) == str: # checks if the type of the new data is a string
+                            splitresult = data[key].split() #and splits it if it is
+                        else:
+                            splitresult = '' # if it isn't, then it splits the result to an empty string
+                        if type(data[key]) == bool: # checks if the type of the new data is a boolean
+                            country.Conditionals[key] = data[key] # sets the condional key to the new data
+                        elif type(data[key]) == str and len(splitresult) == 3: # if the new data is a string and it has 3 words then
+                            splitresult = data[key].split() # split it by spaces
+                            if splitresult[0] == 'randint': # if its first word is randint
+                                country.Conditionals[key] = random.randint(int(splitresult[1]), int(splitresult[2])) # then it generates a random number
+                        elif 'var' in splitresult: # checks if there is a variable in split result
+                            times_var = 0
+                            index = 0
+                            for i in range(len(splitresult)): # iterates over the length of split result
+                                if i == 'var': # checks if i is equal to 'var'
+                                    times_var += 1 # increases times_var by one if it is
+                            if times_var == 1: # checks if times_var is equal to one
+                                for i in range(len(splitresult)-1): # iterates over the length of split result - 1
+                                    if i == 'var': # checks if i is equal to 'var'
+                                        break
+                                    else: 
+                                        index += 1 # increases index by 1
+                                variable = splitresult[index+1] # sets variable to index
+                                if splitresult[0] == 'randint': # if the first element in split result is 'randint' then
+                                    if index == 2: # check if index is equal to 2
+                                        country.Conditionals[key] = random.randint(country.Conditionals[variable], splitresult[4]) # random number generating - sets a variable to it
+                                    elif index == 3:
+                                        country.Conditionals[key] = random.randint(splitresult[1], country.Conditionals[variable]) # same as above but reversed
                         elif type(data[key]) == int:
                             country.Conditionals[key] = data[key]  # changes the conditions to the results
             OtherNation = ['{NewNation}', '{NewLeader}']
@@ -70,4 +90,5 @@ def Conditions(country, opposingCountry):
             for i in splitline:
                 if i in OtherNation:
                     OtherNationIncluded = True # checks if other nations are mentioned
+            f.close()
             return line, OtherNationIncluded
